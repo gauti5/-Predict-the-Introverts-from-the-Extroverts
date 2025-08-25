@@ -12,6 +12,7 @@ import numpy as np
 
 from sklearn.model_selection import train_test_split
 
+@dataclass
 class DataIngestionConfig:
     raw_data_path:str=os.path.join("Artifacts", "Raw_Data.csv")
     train_data_path:str=os.path.join("Artifacts", "Train_Data.csv")
