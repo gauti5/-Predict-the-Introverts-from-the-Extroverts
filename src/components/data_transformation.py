@@ -1,27 +1,29 @@
 import os 
 import sys
-import pandas 
+import pandas as pd
+import numpy as np
 
 from src.logging import logging
 from src.exception import CustomException
+from src.utils import save_object
 
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
-from sklearn.compose import ColumnTramsformer
+from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
 from dataclasses import dataclass
 
 @dataclass 
 
-class DataTransformationConfig:
-    preprocessor_file_path=os.path.join("Artifacts", "Preprocessor.pkl")
+class Data_Transformation_Config:
+    preprocessor_file_path=os.path.join('Artifacts', 'preprocessor.pkl')
     
-class DataTransfornation:
+class DataTransformation:
     def __init__(self):
-        self.data_transformation_config=DataTransformationConfig()
+        self.data_transformation_config=Data_Transformation_Config()
         
-    def get_data_transfornation():
+    def get_data_transfornation(self):
         try:
             logging.info("Data Transformation Started!!!")
             
@@ -48,7 +50,7 @@ class DataTransfornation:
                 ]
             )
             
-            preprocessor=ColumnTramsformer([
+            preprocessor=ColumnTransformer([
                 ('num pipeline', Num_Pipeline, Num_cols),
                 ('cate pipeline', Cat_Pipeline, Cat_cols)
             ])
@@ -57,4 +59,45 @@ class DataTransfornation:
         except Exception as e:
             logging.info("Exception occured during the data transformation!!!")
             raise CustomException(e,sys)
+        
+    def initiate_data_transformation(self, train_path, test_path):
+        try:
+            
+            train_df=pd.read_csv(train_path)
+            test_df=pd.read_csv(test_path)
+            
+            preprocessor_obj=self.get_data_transfornation()
+            
+            logging.info("read the training data and testing data")
+            
+            logging.info(f"Training DataFrame : \n{train_df.head(5).to_string()}")
+            logging.info(f"Testing DataFrame : \n{test_df.head(5).to_string()}")
+            
+            input_features_train_df=train_df.drop('Personality', axis=1)
+            target_features_train_df=train_df['Personality']
+            
+            input_features_test_df=test_df.drop('Personality', axis=1)
+            target_features_test_df=test_df['Personality']
+            
+            input_features_train_arr=preprocessor_obj.fit_transform(input_features_train_df)
+            input_features_test_arr=preprocessor_obj.transform(input_features_test_df)
+            
+            train_arr=np.c_[input_features_train_arr, np.array(target_features_train_df)]
+            test_arr=np.c_[input_features_test_arr, np.array(target_features_test_df)]
+            
+            save_object(
+                file_path=self.data_transformation_config.preprocessor_file_path,
+                obj=preprocessor_obj
+            )
+            logging.info("preprocessor pickle file saved!!")
+            
+            return(
+                train_arr, test_arr
+            )
+            
+        except Exception as e:
+            logging.info("Error occured during data transformation!!")
+            raise CustomException(e, sys)
+        
+    
 
