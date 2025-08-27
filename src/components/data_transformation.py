@@ -82,6 +82,9 @@ class DataTransformation:
             input_features_train_arr=preprocessor_obj.fit_transform(input_features_train_df)
             input_features_test_arr=preprocessor_obj.transform(input_features_test_df)
             
+            
+            # Combines features (X) and target (y) into one array for both train and test.
+            # np.c_[] concatenates them column-wise
             train_arr=np.c_[input_features_train_arr, np.array(target_features_train_df)]
             test_arr=np.c_[input_features_test_arr, np.array(target_features_test_df)]
             
@@ -100,4 +103,18 @@ class DataTransformation:
             raise CustomException(e, sys)
         
     
+"""
+Raw CSV → Pandas DataFrame
 
+Split into Features (X) + Target (y)
+
+Pass X through Preprocessor (Num + Cat pipelines)
+
+Get transformed features
+
+Add target column back
+
+Return final numpy arrays for Train & Test
+
+Save preprocessor for later use
+"""
