@@ -5,6 +5,7 @@ from src.logging import logging
 from src.exception import CustomException
 
 from src.components.data_transformation import Data_Transformation_Config, DataTransformation
+from src.components.model_trainer import ModelTrainer, ModelTrainerConfig
 
 from dataclasses import dataclass
 from pathlib import PurePath
@@ -63,4 +64,6 @@ if __name__=='__main__':
     obj=DataIngestion()
     train_data, test_data=obj.initiate_data_ingestion()
     data_transformation=DataTransformation()
-    data_transformation.initiate_data_transformation(train_path=train_data, test_path=test_data)
+    train_arr, test_arr=data_transformation.initiate_data_transformation(train_data, test_data)
+    model_trainer=ModelTrainer()
+    print(model_trainer.initiate_model_trainer(train_arr, test_arr))

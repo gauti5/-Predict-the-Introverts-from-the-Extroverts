@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from src.logging import logging
 from src.exception import CustomException
 
-from src.utils import save_object
+from src.utils import save_object, evaluate_model
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
@@ -21,7 +21,7 @@ from sklearn.neighbors import KNeighborsClassifier
 
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
 
-
+@dataclass
 class ModelTrainerConfig:
     trained_model_file_path=os.path.join("Artifacts", "model.pkl")
     
@@ -52,3 +52,37 @@ class ModelTrainer:
                 'Gradinet Boostoing Classifier': GradientBoostingClassifier(),
                 'K Neigbors Classifier': KNeighborsClassifier()
             }
+            model_report:dict=evaluate_model(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, models=models)
+            
+            print(model_report)
+            
+            print("/n====================================================================")
+            
+            logging.info(f"Model Report : {model_report}")
+            
+            best_model_score=max(sorted(model_report.values()))
+            best_model_name=list(model_report.keys())[
+                list(model_report.values()).index(best_model_score)
+            ]
+            
+            best_model=models[best_model_name]
+            
+            print(f"Best Model Found !!, model name : {best_model}, Accuracy Score : {best_model_score}")
+            
+            print("\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+            
+            
+            logging.info(f"Best Model Found, Model Name : {best_model}, Accuracy Score : {best_model_score}")
+            
+            if best_model_score<0.7:
+                raise CustomException("Best Model Not Found!!!")
+            logging.info("Best Model Found!!!")
+            
+            save_object(
+                file_path=self.model_trainer_config.trained_model_file_path,
+                obj=best_model
+            )
+            
+        except Exception as e:
+            logging.info("Error occured during the model training!!!")
+            raise CustomException(e,sys)

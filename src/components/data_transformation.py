@@ -27,7 +27,7 @@ class DataTransformation:
         try:
             logging.info("Data Transformation Started!!!")
             
-            Num_cols=['id', 'Time_spent_Alone', 'Social_event_attendance', 'Going_outside', 'Friends_circle_size','Post_frequency']
+            Num_cols=['Time_spent_Alone', 'Social_event_attendance', 'Going_outside', 'Friends_circle_size','Post_frequency']
             Cat_cols=['Stage_fear', 'Drained_after_socializing']
             
             Stage_fear_categories=['Yes', 'No']
@@ -37,14 +37,14 @@ class DataTransformation:
             
             Num_Pipeline=Pipeline(
                 steps=[
-                    ('inputer', SimpleImputer(strategy='median')),
+                    ('imputer', SimpleImputer(strategy='median')),
                     ('scaler', StandardScaler(with_mean=False))
                 ]
             )
             
             Cat_Pipeline=Pipeline(
                 steps=[
-                    ('inputer', SimpleImputer(strategy='most_frequent')),
+                    ('imputer', SimpleImputer(strategy='most_frequent')),
                     ('encoder', OneHotEncoder(categories=[Stage_fear_categories, Drained_after_socializing_categories], handle_unknown='ignore')),
                     ('scaler', StandardScaler(with_mean=False))
                 ]
