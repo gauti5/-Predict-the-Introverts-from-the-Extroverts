@@ -33,6 +33,7 @@ class DataTransformation:
             Stage_fear_categories=['Yes', 'No']
             Drained_after_socializing_categories=['Yes', 'No']
             
+            
             logging.info('Pipeline Started!!!')
             
             Num_Pipeline=Pipeline(
@@ -69,6 +70,11 @@ class DataTransformation:
             preprocessor_obj=self.get_data_transfornation()
             
             logging.info("read the training data and testing data")
+            
+            train_df["Personality"] = train_df["Personality"].fillna(train_df["Personality"].mode()[0])
+            test_df["Personality"] = test_df["Personality"].fillna(test_df["Personality"].mode()[0])
+
+            logging.info("Filled missing target values with mode.")
             
             logging.info(f"Training DataFrame : \n{train_df.head(5).to_string()}")
             logging.info(f"Testing DataFrame : \n{test_df.head(5).to_string()}")

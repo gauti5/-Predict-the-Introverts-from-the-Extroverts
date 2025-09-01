@@ -48,7 +48,7 @@ class ModelTrainer:
                 'Support Vector Classifier': SVC(),
                 'Decision Tree Classifier': DecisionTreeClassifier(),
                 'Random Forest Classifier': RandomForestClassifier(),
-                'AdaBoost Classifier': AdaBoostClassifier(),
+                'AdaBoost Classifier': AdaBoostClassifier(algorithm="SAMME"),
                 'Gradinet Boostoing Classifier': GradientBoostingClassifier(),
                 'K Neigbors Classifier': KNeighborsClassifier()
             }

@@ -6,7 +6,7 @@ import pickle
 from src.logging import logging
 from src.exception import CustomException
 
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import classification_report, accuracy_score, f1_score
 
 def save_object(file_path, obj):
     try:
