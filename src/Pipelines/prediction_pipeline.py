@@ -30,7 +30,7 @@ class predict_pipeline:
             logging.info("Error occured during the prediction pipeline")
             raise CustomException(e,sys)
         
-    class CustomData:
+class CustomData:
         def __init__(self,
                      id:int,
                      Time_spent_Alone:float,

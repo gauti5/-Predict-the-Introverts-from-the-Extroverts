@@ -1,0 +1,59 @@
+<html>
+  <head> 
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    <title>Predict the Introverts from the Extroverts</title>
+  </head>
+<body>
+<h1><center>Predict the Introverts from the Extroverts</center></h1>
+<form action="{{url_for('predict_datapoint')}}" method="POST">
+    <div class="form-group">
+        <label for="id">id:</label>
+        <input type="text" id="id" name="id" placeholder="Enter id (int)">
+    </div>
+
+    <div class="form-group">
+        <label for="Time_spent_Alone">Time_spent_Alone:</label>
+        <input type="text" id="Time_spent_Alone" name="Time_spent_Alone" placeholder="Enter Time_spent_Alone (float)">
+    </div>
+
+    <div class="form-group">  
+        <label for="Stage_fear">Stage_fear:</label>
+        <input type="text" id="Stage_fear" name="Stage_fear" placeholder="Enter Stage_fear (Object)">
+    </div>
+    
+    <div class="form-group">
+        <label for="Social_event_attendance">Social_event_attendance:</label>
+        <input type="text" id="Social_event_attendance" name="Social_event_attendance" placeholder="Enter Social_event_attendance (float)">
+    </div>
+  
+    <div class="form-group">
+        <label for="Going_outside">Going_outside:</label>
+        <input type="text" id="Going_outside" name="Going_outside" placeholder="Enter Going_outside (float)">
+    </div>
+  
+    
+    
+    <div class="form-group">
+        <label for="Drained_after_socializing">Drained_after_socializing:</label>
+        <input type="text" id="Drained_after_socializing" name="Drained_after_socializing" placeholder="Enter Drained_after_socializing (Object)">
+    </div>   
+
+    <div class="form-group">
+        <label for="Friends_circle_size">Friends_circle_size:</label>
+        <input type="text" id="Friends_circle_size" name="Friends_circle_size" placeholder="Enter Friends_circle_size (float)">
+    </div>   
+
+    <div class="form-group">
+        <label for="Post_frequency">Post_frequency:</label>
+        <input type="text" id="Post_frequency" name="Post_frequency" placeholder="Enter Post_frequency (float)">
+    </div> 
+
+    
+
+    
+
+<div style="clear:both;"></div>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>

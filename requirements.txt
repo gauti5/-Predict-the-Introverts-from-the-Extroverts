@@ -5,4 +5,5 @@ scikit-learn
 seaborn
 ipykernel
 pickle
+flask
 -e.
