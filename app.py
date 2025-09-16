@@ -16,10 +16,10 @@ def predict_datapoint():
         data=CustomData(
             id=int(request.form.get('id')),
             Time_spent_Alone=float(request.form.get('Time_spent_Alone')),
-            Stage_fear=object(request.form.get('Stage_fear')),
+            Stage_fear=float(request.form.get('Stage_fear')),
             Social_event_attendance=float(request.form.get('Social_event_attendance')),
             Going_outside=float(request.form.get('Going_outside')),
-            Drained_after_socializing=object(request.form.get('Drained_after_socializing')),
+            Drained_after_socializing=float(request.form.get('Drained_after_socializing')),
             Friends_circle_size=float(request.form.get('Friends_circle_size')),
             Post_frequency=float(request.form.get('Post_frequency'))
         )

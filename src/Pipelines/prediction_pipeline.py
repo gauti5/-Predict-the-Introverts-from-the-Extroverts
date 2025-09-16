@@ -14,8 +14,8 @@ class predict_pipeline:
         pass
     def predict(self, features):
         try:
-            preprocessor_path=os.path.join("Artifacts", "preprocessor.pkl")
-            model_path=os.path.join("Artifacts", "model.pkl")
+            preprocessor_path=os.path.join('Artifacts', 'preprocessor.pkl')
+            model_path=os.path.join('Artifacts', 'model.pkl')
             
             model=load_object(file_path=model_path)
             preprocessor=load_object(file_path=preprocessor_path)
@@ -34,10 +34,10 @@ class CustomData:
         def __init__(self,
                      id:int,
                      Time_spent_Alone:float,
-                     Stage_fear:object,
+                     Stage_fear:float,
                      Social_event_attendance:float,
                      Going_outside:float,
-                     Drained_after_socializing:object,
+                     Drained_after_socializing:float,
                      Friends_circle_size:float,
                      Post_frequency:float):
             self.id=id
@@ -57,7 +57,6 @@ class CustomData:
                     'Stage_fear':[self.Stage_fear],
                     'Social_event_attendance':[self.Social_event_attendance],
                     'Going_outside':[self.Going_outside],
-                    'Drained_after_socializing':[self.Drained_after_socializing],
                     'Drained_after_socializing':[self.Drained_after_socializing],
                     'Friends_circle_size':[self.Friends_circle_size],
                     'Post_frequency':[self.Post_frequency]
